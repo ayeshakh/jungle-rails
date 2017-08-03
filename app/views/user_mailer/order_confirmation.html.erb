@@ -9,18 +9,18 @@
       You have successfully placed an order with us.
       Please find the details of order
       Your Order ID is: #<%= @order.id %><br>
-      Your Total Purchase Price is: <%= @order.price %> <br>
+
       <br>
       Items you purchased are as below:
       <tbody>
         <% @order.line_items.each do |line_item| %>
-          <%= line_item.product.name %>
+          <%= line_item.product.name %><br>
+          <!-- Price is: <%= line_item.item_price %> -->
         <% end %>
+
+        Total Purchase is: <%= @order.total_cents/100.00 %>
       </tbody>
     </p>
-    <p>
-      To login to the site, just follow this link: <%= @url %>.
-    </p>
-    <p>Thanks for joining and have a great day!</p>
+    <p>Thanks for shopping with us and have a great day!</p>
   </body>
 </html>
