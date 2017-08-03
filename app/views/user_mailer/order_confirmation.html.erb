@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Hi</h1>
+    <p>
+      You have successfully placed an order with us.
+      Please find the details of order
+      Your Order ID is: #<%= @order.id %><br>
+      Your Total Purchase Price is: <%= @order.price %> <br>
+      <br>
+      Items you purchased are as below:
+      <tbody>
+        <% @order.line_items.each do |line_item| %>
+          <%= line_item.product.name %>
+        <% end %>
+      </tbody>
+    </p>
+    <p>
+      To login to the site, just follow this link: <%= @url %>.
+    </p>
+    <p>Thanks for joining and have a great day!</p>
+  </body>
+</html>
