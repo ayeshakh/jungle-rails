@@ -34,7 +34,8 @@
         <li>
           <%= f.text_field :description %><br>
           <p>Rating</p>
-          <%= select_tag "rating", raw("<option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>")%>
+          <%= f.select :rating, [[1, 1],[2, 2],[3, 3],[4, 4],[5, 5]] %>
+          <%= f.hidden_field(:product_id) %>
           <%= f.submit "Submit" %>
         </li>
       </ul>
