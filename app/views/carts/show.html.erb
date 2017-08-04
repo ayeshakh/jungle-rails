@@ -4,6 +4,18 @@
     <h1>My Cart</h1>
   </header>
 
+  <% if cart.blank? %>
+    <div>
+      Your cart is empty!
+    </div><br>
+    <div>
+
+      <% link_to "Home", root_path %>
+      #  => <a href="/">Home</a>
+
+    </div>
+  <% else %>
+
   <div class="panel panel-default items">
     <table class="table table-bordered">
       <thead>
@@ -49,5 +61,5 @@
       <% end %>
     </div>
   </div>
-
+<% end %>
 </section>
