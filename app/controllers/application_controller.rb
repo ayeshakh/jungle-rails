@@ -26,8 +26,8 @@ class ApplicationController < ActionController::Base
 
   # Authorize is for sending someone to the login page if they aren't logged in
 
-  # def authorize
-  #   redirect_to '/login' unless current_user
-  # end
+  def authorize
+    redirect_to '/login' unless current_user
+  end
 
 end

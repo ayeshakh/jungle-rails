@@ -1,6 +1,13 @@
 class ReviewsController < ApplicationController
 
   def new
+    def new
+    before_filter  :authorize,  only: [:create, :destroy]
+
+      redirect_to "/" unless current_admin || current_company
+      flash[:notice] = 'You dont have enough permissions to be here' unless current_admin || current_company
+
+     end
     @review = Review.new
   end
 
