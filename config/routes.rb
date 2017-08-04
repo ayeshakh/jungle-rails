@@ -19,6 +19,10 @@ Rails.application.routes.draw do
     get 'logout' => 'sessions#destroy' # process logout
   end
 
+  resources :products do
+    resources :reviews, only: [:create]
+  end
+
   namespace :admin do
     root to: 'dashboard#show'
     resources :products, except: [:edit, :update, :show]
