@@ -27,6 +27,18 @@
     </div>
 
     <div class="row">
+    <h1>Give Your Comments Here!</h1>
+
+    <%= form_for [@product, @review] do |f| %>
+      <ul>
+        <li>
+          <%= f.text_field :description %><br>
+          <p>Rating</p>
+          <%= select_tag "rating", raw("<option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>")%>
+          <%= f.submit "Submit" %>
+        </li>
+      </ul>
+    <% end %>
 
       <div class="col-sm-8">
         <dl class="dl-horizontal">
