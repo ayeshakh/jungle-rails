@@ -132,5 +132,50 @@ cat3.products.create!({
   price: 2_483.75
 })
 
+#create users
+User.destroy_all
+
+User.create!({
+  name: 'Sally',
+  email: 'sally@example.com',
+  password_digest: BCrypt::Password.create('hello')
+  })
+
+User.create!({
+  name: 'Alice',
+  email: 'alice@example.com',
+  password_digest: BCrypt::Password.create('1234ab')
+  })
+
+#create reviews
+Review.destroy_all
+
+Review.create!({
+  user_id: 1,
+  product_id: 1,
+  description:"amazing",
+  rating: 4
+  })
+
+Review.create!({
+  user_id: 1,
+  product_id: 2,
+  description:"Love it!!!",
+  rating: 5
+  })
+
+Review.create!({
+  user_id: 1,
+  product_id: 3,
+  description:"Its not so bad",
+  rating: 3
+  })
+
+Review.create!({
+  user_id: 2,
+  product_id: 1,
+  description:"Greatest Product Ever",
+  rating: 2
+  })
 
 puts "DONE!"
