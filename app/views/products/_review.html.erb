@@ -1,0 +1,9 @@
+
+    <dt>User</dt>
+    <dd><%= review.user.name %></dd>
+    <dt>Date</dt>
+    <dd><%= time_ago_in_words(review.updated_at) %></dd>
+    <dt>Review</dt>
+    <dd><%= review.description %></dd>
+    <dt>Rating</dt>
+    <dd><%= review.rating %></dd>

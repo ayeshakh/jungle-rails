@@ -175,7 +175,7 @@ Review.create!({
   user_id: 2,
   product_id: 1,
   description:"Greatest Product Ever",
-  rating: 2
+  rating: 5
   })
 
 puts "DONE!"
