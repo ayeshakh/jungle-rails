@@ -1,34 +1,38 @@
 class ReviewsController < ApplicationController
 
-  def new
     def new
-    before_filter  :authorize,  only: [:create, :destroy]
+      before_filter  :authorize,  only: [:create, :destroy]
+      redirect_to "/"
+    end
 
-      redirect_to "/" unless current_admin || current_company
-      flash[:notice] = 'You dont have enough permissions to be here' unless current_admin || current_company
+    def create
 
-     end
-    @review = Review.new
-  end
-
-  def create
-    @review = Review.new(review_params)
-     @review.user = current_user
-      @review.save
+      @review = Review.new(
+      rating: review_params[:rating],
+      description: review_params[:description],
+      user_id: current_user.id,
+      product_id: params["product_id"]
+      )
         if @review.save
-          flash[:success] = "Review created!"
-          redirect_to "/products/" + params[:product_id]
+
+          redirect_to product_path(@review.product), notice: "Review created!"
         else
-          flash[:failure] = "Try Again"
-          redirect_to "/"
+          @product = @review.product
+          @reviews = @product.reviews
+          puts "comment did not save"
+          render "products/show"
         end
+    end
 
-  end
+    def destroy
+      @review = Review.find(params[:id])
+      @review.destroy
+      redirect_to product_path(@review.product), notice: 'Review has been deleted!'
+    end
 
-  private
+     private
 
     def review_params
       params.require(:review).permit(:description, :rating, :product_id)
     end
-
 end

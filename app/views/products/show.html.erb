@@ -28,7 +28,7 @@
 
     <div class="row">
     <h1>Give Your Comments Here!</h1>
-
+    <% if current_user %>
     <%= form_for [@product, @review] do |f| %>
       <ul>
         <li>
@@ -36,16 +36,23 @@
           <p>Rating</p>
           <%= f.select :rating, [[1, 1],[2, 2],[3, 3],[4, 4],[5, 5]] %>
           <%= f.hidden_field(:product_id) %>
+          <%= f.hidden_field(:user_id) %>
           <%= f.submit "Submit" %>
         </li>
       </ul>
     <% end %>
+    <% end %>
 
       <div class="col-sm-8">
         <dl class="dl-horizontal">
-        <% @product.reviews.each do |review| %>
-          <%= render 'review', review: review %>
-        <% end %>
+          <% @product.reviews.reverse.each do |review| %>
+            <%= render 'review', review: review %>
+            <% if review.user_id == session[:user_id] %>
+             <span style="float:left; color: red;">
+            <%= link_to fa_icon('trash'), [@product, review], class: 'btn btn-sm btn-danger', method: :delete %>
+          </span>
+          <% end %>
+        <%end %>
         </dl>
       </div>
     </div>
