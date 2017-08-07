@@ -137,12 +137,14 @@ User.destroy_all
 
 User.create!({
   name: 'Sally',
+  last_name: 'Hanson'
   email: 'sally@example.com',
   password_digest: BCrypt::Password.create('hello')
   })
 
 User.create!({
   name: 'Alice',
+  last_name: 'Hanks'
   email: 'alice@example.com',
   password_digest: BCrypt::Password.create('1234ab')
   })
