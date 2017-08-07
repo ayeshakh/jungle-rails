@@ -4,40 +4,90 @@ RSpec.describe User, type: :model do
   describe 'Validations' do
 
     it "is a valid test" do
-      @category = Category.new
-      product = Product.new ({
-        name: "wooden-bench",
-        price: 50,
-        quantity: 5,
-        category: @category
+      user = User.new ({
+        name: "Bob",
+        last_name: "Hanks",
+        email: "bob@example.com",
+        password: "abcde",
+        password_confirmation: "abcde"
         })
-      expect(product).to be_valid
+      expect(user).to be_valid
     end
 
     it "is invalid without a name" do
-      product = Product.new(name: nil)
-      product.valid?
-      # puts product.errors.full_messages.inspect
+      user = User.new(name: nil)
+      user.valid?
+      # puts user.errors.full_messages.inspect
       # (can use this to see what the errors actually are!!)
-      expect(product.errors.full_messages).to include("Name can't be blank")
+      expect(user.errors.full_messages).to include("Name can't be blank")
     end
 
-    it "is invalid without a price" do
-      product = Product.new(price: nil)
-      product.valid?
-      expect(product.errors.full_messages).to include("Price can't be blank")
+    it "is invalid without a last_name" do
+      user = User.new(last_name: nil)
+      user.valid?
+      expect(user.errors.full_messages).to include("Last name can't be blank")
     end
 
-    it "is invalid without a quantity" do
-      product = Product.new(quantity: nil)
-      product.valid?
-      expect(product.errors.full_messages).to include("Quantity can't be blank")
+    it "is invalid without an email" do
+      user = User.new(email: nil)
+      user.valid?
+      expect(user.errors.full_messages).to include("Email can't be blank")
     end
 
-    it "is invalid without a category" do
-      product = Product.new(category_id: nil)
-      product.valid?
-      expect(product.errors.full_messages).to include("Category can't be blank")
+    it "is invalid without an password" do
+      user = User.new(password: nil)
+      user.valid?
+      expect(user.errors.full_messages).to include("Password can't be blank")
+    end
+
+    it "is invalid without a password confirmation" do
+      user = User.new(password_confirmation: nil)
+      user.valid?
+      expect(user.errors.full_messages).to include("Password confirmation can't be blank")
+    end
+
+    it "password dont match" do
+      user = User.new({
+        name: "Bob",
+        last_name: "Hanks",
+        email: "bob@example.com",
+        password: "abcde",
+        password_confirmation: "abcdefg"
+        })
+      expect(user.valid?).to be false
+    end
+
+    it "password has minimum 5 characters" do
+      user = User.new({
+        name: "Bob",
+        last_name: "Hanks",
+        email: "bob@example.com",
+        password: "abcd",
+        password_confirmation: "abcd"
+        })
+      user.valid?
+      expect(user.errors.full_messages).to include("Password is too short (minimum is 5 characters)")
+    end
+
+    it "email must be unique" do
+      User.create({
+        name: "Bob",
+        last_name: "Hanks",
+        email: "bob@example.com",
+        password: "abcde",
+        password_confirmation: "abcde"
+        })
+
+       user = User.new({
+        name: "Sally",
+        last_name: "Johnson",
+        email: "bob@example.com",
+        password: "12345",
+        password_confirmation: "12345"
+        })
+
+      expect(user.valid?).to be false
+      expect(user.errors[:email]).to include("has already been taken")
     end
   end
 end
